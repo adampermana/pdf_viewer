@@ -58,7 +58,7 @@ class PDFViewer extends StatefulWidget {
   final Widget? progressIndicator;
 
   const PDFViewer({
-    Key? key,
+    super.key,
     required this.document,
     this.scrollDirection,
     this.lazyLoad = true,
@@ -81,7 +81,7 @@ class PDFViewer extends StatefulWidget {
     this.pickerButtonColor,
     this.pickerIconColor,
     this.onPageChanged,
-  }) : super(key: key);
+  });
   @override
   _PDFViewerState createState() => _PDFViewerState();
 }
@@ -161,8 +161,11 @@ class _PDFViewerState extends State<PDFViewer> {
   }
 
   void _animateToPage({int? page}) {
-    _pageController.animateToPage(page ?? _pageNumber - 1,
-        duration: animationDuration, curve: animationCurve);
+    _pageController.animateToPage(
+      page ?? _pageNumber - 1,
+      duration: animationDuration,
+      curve: animationCurve,
+    );
   }
 
   void _jumpToPage({int? page}) {
@@ -171,23 +174,28 @@ class _PDFViewerState extends State<PDFViewer> {
 
   Widget _drawIndicator() {
     final child = GestureDetector(
-        onTap:
-            widget.showPicker && widget.document.count > 1 ? _pickPage : null,
-        child: Container(
-            padding: const EdgeInsets.only(
-              top: 4.0,
-              left: 16.0,
-              bottom: 4.0,
-              right: 16.0,
-            ),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(4.0),
-                color: widget.indicatorBackground),
-            child: Text("$_pageNumber/${widget.document.count}",
-                style: TextStyle(
-                    color: widget.indicatorText,
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.w400))));
+      onTap: widget.showPicker && widget.document.count > 1 ? _pickPage : null,
+      child: Container(
+        padding: const EdgeInsets.only(
+          top: 4.0,
+          left: 16.0,
+          bottom: 4.0,
+          right: 16.0,
+        ),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(4.0),
+          color: widget.indicatorBackground,
+        ),
+        child: Text(
+          "$_pageNumber/${widget.document.count}",
+          style: TextStyle(
+            color: widget.indicatorText,
+            fontSize: 16.0,
+            fontWeight: FontWeight.w400,
+          ),
+        ),
+      ),
+    );
 
     switch (widget.indicatorPosition) {
       case IndicatorPosition.topLeft:

@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.2
+* update asset management
+* add new Android and iOS configurations
+
 ## 2.0.1
 * Bug fixes related to cache
 * improvements

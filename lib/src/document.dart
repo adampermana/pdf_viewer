@@ -38,8 +38,11 @@ class PDFDocument {
   /// [Map<String,String headers] headers to pass for the [url]
   /// [CacheManager cacheManager] to provide configuration for
   /// cache management
-  static Future<PDFDocument> fromURL(String url,
-      {Map<String, String>? headers, CacheManager? cacheManager}) async {
+  static Future<PDFDocument> fromURL(
+    String url, {
+    Map<String, String>? headers,
+    CacheManager? cacheManager,
+  }) async {
     // Download into cache
     final f = await (cacheManager ?? DefaultCacheManager())
         .getSingleFile(url, headers: headers);
@@ -86,11 +89,11 @@ class PDFDocument {
   /// [page] defaults to `1` and must be equal or above it
   Future<PDFPage> get({
     int page = 1,
-    final Function(double)? onZoomChanged,
-    final int? zoomSteps,
-    final double? minScale,
-    final double? maxScale,
-    final double? panLimit,
+    Function(double)? onZoomChanged,
+    int? zoomSteps,
+    double? minScale,
+    double? maxScale,
+    double? panLimit,
   }) async {
     assert(page > 0);
     if (_preloaded && _pages.isNotEmpty) return _pages[page - 1];
@@ -108,25 +111,29 @@ class PDFDocument {
   }
 
   Future<void> preloadPages({
-    final Function(double)? onZoomChanged,
-    final int? zoomSteps,
-    final double? minScale,
-    final double? maxScale,
-    final double? panLimit,
+    Function(double)? onZoomChanged,
+    int? zoomSteps,
+    double? minScale,
+    double? maxScale,
+    double? panLimit,
   }) async {
     int countvar = 1;
     for (final _ in List.filled(count, null)) {
       final data = await _channel.invokeMethod(
-          'getPage', {'filePath': _filePath, 'pageNumber': countvar});
-      _pages.add(PDFPage(
-        data as String?,
-        countvar,
-        onZoomChanged: onZoomChanged,
-        zoomSteps: zoomSteps ?? 3,
-        minScale: minScale ?? 1.0,
-        maxScale: maxScale ?? 5.0,
-        panLimit: panLimit ?? 1.0,
-      ));
+        'getPage',
+        {'filePath': _filePath, 'pageNumber': countvar},
+      );
+      _pages.add(
+        PDFPage(
+          data as String?,
+          countvar,
+          onZoomChanged: onZoomChanged,
+          zoomSteps: zoomSteps ?? 3,
+          minScale: minScale ?? 1.0,
+          maxScale: maxScale ?? 5.0,
+          panLimit: panLimit ?? 1.0,
+        ),
+      );
       countvar++;
     }
     _preloaded = true;
