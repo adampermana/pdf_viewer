@@ -1,5 +1,3 @@
-package android
-
 group 'pt.tribeiro.flutter_pdf_viewer'
 version '1.0-SNAPSHOT'
 
