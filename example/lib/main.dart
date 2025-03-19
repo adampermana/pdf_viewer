@@ -1,9 +1,9 @@
 import 'package:advance_pdf_viewer/advance_pdf_viewer.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(MaterialApp(
-      home: MyApp(),
-    ));
+void main() => runApp(const MaterialApp(
+  home: MyApp(),
+));
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -85,15 +85,15 @@ class MyAppState extends State<MyApp> {
         child: _isLoading
             ? Center(child: CircularProgressIndicator())
             : PDFViewer(
-                document: document,
-                zoomSteps: 1,
-                //uncomment below line to preload all pages
-                // lazyLoad: false,
-                // uncomment below line to scroll vertically
-                // scrollDirection: Axis.vertical,
+          document: document,
+          zoomSteps: 1,
+          //uncomment below line to preload all pages
+          // lazyLoad: false,
+          // uncomment below line to scroll vertically
+          // scrollDirection: Axis.vertical,
 
-                //uncomment below code to replace bottom navigation with your own
-                /* navigationBuilder:
+          //uncomment below code to replace bottom navigation with your own
+          /* navigationBuilder:
                           (context, page, totalPages, jumpToPage, animateToPage) {
                         return ButtonBar(
                           alignment: MainAxisAlignment.spaceEvenly,
@@ -125,7 +125,7 @@ class MyAppState extends State<MyApp> {
                           ],
                         );
                       }, */
-              ),
+        ),
       ),
     );
   }
