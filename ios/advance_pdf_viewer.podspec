@@ -16,6 +16,6 @@ Allows you to generate PNG&#x27;s of specified pages from a provided PDF file so
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
 
-  s.ios.deployment_target = '15.5.0'
+  s.ios.deployment_target = '12.0'
 end
 
